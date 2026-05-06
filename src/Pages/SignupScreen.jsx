@@ -2,9 +2,9 @@ import SignupPage from "../feature/signup/SignupPage"
 
 const SignupScreen = () => {
   return (
-    <div>
+    <main className="flex items-center justify-center">
         <SignupPage/>
-    </div>
+    </main>
   )
 }
 

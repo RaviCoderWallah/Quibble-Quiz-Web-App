@@ -18,7 +18,7 @@ const WelcomePage = () => {
             <div className="bg-[#201f1f] p-4 rounded-md flex flex-col gap-8 py-8 outline-1 outline-gray-700 md:order-1 order-2">
                 <div className="flex items-center gap-2 text-3xl">
                     <MdQuestionAnswer className="text-teal-600" />
-                    <h1>Welcome Screen ! </h1>
+                    <h1>Welcome in Quibble ! </h1>
                 </div>
                 <p className="text-gray-300">
                     Level up your knowledge and challenge friends in the utlimate trivia experience. Friendly competition starts here.
