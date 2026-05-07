@@ -28,7 +28,7 @@ const GamePlayScreen = () => {
         <h1 className="text-3xl font-bold text-yellow-500">What is the full form of HTML?</h1>
         <div className="grid grid-cols-2 gap-4 mt-6 max-w-140 mx-auto">
           <button className="bg-green-700 text-white text-sm outline-2 py-2 rounded-sm outline-green-500 cursor-pointer hover:outline-2">Hyper Text Markup Language</button>
-          <button className="bg-gray-600/50 text-white text-sm outline-1 py-2 rounded-sm cursor-pointer hover:outline-2">High Text Machine Language</button>
+          <button className="bg-gray-600/50 text-white text-sm outline-2 py-2 rounded-sm cursor-pointer">High Text Machine Language</button>
           <button className="bg-gray-600/50 text-white text-sm outline-1 py-2 rounded-sm cursor-pointer hover:outline-2">None of the above</button>
           <button className="bg-red-700 text-white text-sm outline-2 py-2 rounded-sm outline-red-500 cursor-pointer hover:outline-2">Hyper Transfer Markup Language</button>
         </div>
