@@ -58,7 +58,8 @@ const QuizWelcomeScreen = ({setIsWelcomeScreenShow}) => {
                         </select>
                     </div>
                 </div>
-                <button onClick={() => setIsWelcomeScreenShow((prev) => !prev)} className="flex items-center gap-2 bg-green-500 text-gray-900 px-2 py-1 text-lg font-semibold cursor-pointer rounded-sm"> <FaPlay /> Play Now ! </button>
+                <button onClick={() => setIsWelcomeScreenShow((prev) => !prev)} 
+                className="flex items-center gap-2 bg-green-500 text-gray-900 px-2 py-1 text-lg font-semibold cursor-pointer rounded-sm hover:bg-green-400"> <FaPlay /> Play Now ! </button>
             </div>
         </div>
     )

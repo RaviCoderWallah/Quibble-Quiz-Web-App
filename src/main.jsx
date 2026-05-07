@@ -1,23 +1,27 @@
 import { createRoot } from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
+//CSS
+import "./index.css";
+
 //Pages
 import App from "./App.jsx";
 import WelcomeScreen from "./Pages/WelcomeScreen";
 import SignUpScreen from "./Pages/SignupScreen.jsx";
 import LoginScreen from "./Pages/LoginScreen.jsx";
-
-//CSS
-import "./index.css";
-import { AuthProvider } from "./context/AuthContext.jsx";
 import QuizScreen from "./Pages/QuizScreen.jsx";
+
+import { AuthProvider } from "./context/AuthContext.jsx";
+import { QuizContextProvider } from "./context/QuizContext.jsx";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: (
       <AuthProvider>
-        <App />
+        <QuizContextProvider>
+          <App />
+        </QuizContextProvider>
       </AuthProvider>
     ),
     children: [
