@@ -33,7 +33,7 @@ const Header = () => {
             <div className="flex gap-4 items-center">
               <button
                 title="Toggle Theme"
-                className="bg-[#2a2a2a] outline-1 outline-gray-400 hover:outline-teal-500 text-gray-300 p-2 rounded-sm cursor-pointer hover:text-teal-500 transition-all"
+                className="bg-[#474646] outline-1 outline-gray-400 hover:outline-teal-500 text-gray-300 p-2 rounded-sm cursor-pointer hover:text-teal-500 transition-all"
               >
                 <FaSun />
               </button>
