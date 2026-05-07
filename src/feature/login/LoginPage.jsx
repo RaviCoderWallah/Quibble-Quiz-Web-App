@@ -14,10 +14,14 @@ const LoginPage = () => {
     password: "",
   });
   const [error, setError] = useState("");
-  const { user, login } = useAuth();
+  const {isLogged, user, login } = useAuth();
   const navigate = useNavigate();
 
-  if (user) {
+  if(!user){
+    return <Navigate to="/signup" replace />;
+  }
+
+  if (isLogged && user) {
     return <Navigate to="/quiz" replace />;
   }
 

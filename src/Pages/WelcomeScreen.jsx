@@ -1,12 +1,20 @@
-import { Navigate, replace } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 import WelcomePage from "../feature/welcome/WelcomePage";
 import useAuth from "../hooks/useAuth";
 
 const WelcomeScreen = () => {
-  const { user } = useAuth();
+  const { user, isLogged, isAuthLoaded } = useAuth();
+
+  if (!isAuthLoaded) {
+    return null;
+  }
 
   if (user) {
-    return <Navigate to="/quiz" replace />;
+    if (isLogged) {
+      return <Navigate to="/quiz" replace />;
+    } else {
+      return <Navigate to="/login" replace />;
+    }
   }
 
   return (

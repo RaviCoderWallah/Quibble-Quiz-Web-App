@@ -4,6 +4,8 @@ export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
+  const [isLogged, setIsLogged] = useState(false);
+  const [isAuthLoaded, setIsAuthLoaded] = useState(false);
 
   // Restore user from localStorage on page refresh
   useEffect(() => {
@@ -11,6 +13,7 @@ export const AuthProvider = ({ children }) => {
     if (stored) {
       setUser(JSON.parse(stored));
     }
+    setIsAuthLoaded(true);
   }, []);
 
   const signup = (data) => {
@@ -26,11 +29,13 @@ export const AuthProvider = ({ children }) => {
     };
     setUser(newUser);
     localStorage.setItem("user", JSON.stringify(newUser));
+    setIsLogged(true);
   };
 
   const login = (credentials) => {
     const storedAccount = JSON.parse(localStorage.getItem("user"));
     if (!storedAccount) {
+      setIsLogged(false);
       return { success: false, reason: "no-account" };
     }
 
@@ -39,19 +44,25 @@ export const AuthProvider = ({ children }) => {
       storedAccount.password === credentials.password
     ) {
       setUser(storedAccount);
+      setIsLogged(true);
       return { success: true };
     }
 
     return { success: false, reason: "invalid-credentials" };
   };
 
+  const logout = () => {
+    setIsLogged(false);
+  };
+
   const signout = () => {
     setUser(null);
     localStorage.removeItem("user");
-  };
+    setIsLogged(false);
+  }
 
   return (
-    <AuthContext.Provider value={{ user, signup, login, signout }}>
+    <AuthContext.Provider value={{isLogged, setIsLogged, user, signup, login, logout, signout, isAuthLoaded }}>
       {children}
     </AuthContext.Provider>
   );

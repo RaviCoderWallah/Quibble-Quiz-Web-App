@@ -5,7 +5,7 @@ import { MdEmail } from "react-icons/md";
 import { RiLockPasswordFill } from "react-icons/ri";
 
 import SignupScreenImage from "../../assets/images/signup-screen.jpg";
-import { Navigate, NavLink, useNavigate } from "react-router-dom";
+import { Navigate, NavLink } from "react-router-dom";
 import { useState } from "react";
 import useAuth from "../../hooks/useAuth.js";
 
@@ -21,9 +21,16 @@ const SignupPage = () => {
     setUserData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const { user, signup } = useAuth();
+  const {isLogged, user, signup } = useAuth();
 
-  if (user) {
+
+  //If user not logged then go to login page
+  if(user && !isLogged){
+    return <Navigate to="/login" replace />
+  }
+
+  //If user exits in account and isLogged true then go to quiz page
+  if (user && isLogged) {
     return <Navigate to="/quiz" replace />;
   }
 

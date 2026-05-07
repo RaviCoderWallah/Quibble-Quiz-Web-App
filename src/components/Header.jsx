@@ -3,13 +3,21 @@ import useAuth from "../hooks/useAuth";
 import { FaSun } from "react-icons/fa6";
 
 const Header = () => {
-  const { user, signout } = useAuth();
+  const { user, setIsLogged, isLogged, signout, logout } = useAuth();
   const navigate = useNavigate();
 
   const handleSignOut = () => {
     signout();
     navigate("/signup");
   };
+
+  const handleLogout = () => {
+    logout();
+    setIsLogged(false);
+    navigate("/login");
+  };
+
+  // Navigation should be handled by components, not Header render cycle
 
   return (
     <header>
@@ -21,7 +29,7 @@ const Header = () => {
         </div>
 
         <div className="flex gap-4">
-          {user ? (
+          {user && isLogged ? (
             <div className="flex gap-4 items-center">
               <button
                 title="Toggle Theme"
@@ -30,10 +38,16 @@ const Header = () => {
                 <FaSun />
               </button>
               <button
+                onClick={handleLogout}
+                className="bg-red-500/10 border border-red-500 text-red-500 font-semibold px-4 py-1 rounded-sm cursor-pointer hover:bg-red-500 hover:text-white transition-colors"
+              >
+                Log Out
+              </button>
+              <button
                 onClick={handleSignOut}
                 className="bg-red-500/10 border border-red-500 text-red-500 font-semibold px-4 py-1 rounded-sm cursor-pointer hover:bg-red-500 hover:text-white transition-colors"
               >
-                Sign Out
+                Delete Account
               </button>
             </div>
           ) : (
