@@ -1,6 +1,5 @@
 import { NavLink, useNavigate } from "react-router-dom";
 import useAuth from "../hooks/useAuth";
-import { FaSun } from "react-icons/fa6";
 
 const Header = () => {
   const { user, setIsLogged, isLogged, signout, logout } = useAuth();
@@ -31,12 +30,6 @@ const Header = () => {
         <div className="flex gap-4">
           {user && isLogged ? (
             <div className="flex gap-4 items-center">
-              <button
-                title="Toggle Theme"
-                className="bg-[#474646] outline-1 outline-gray-400 hover:outline-teal-500 text-gray-300 p-2 rounded-sm cursor-pointer hover:text-teal-500 transition-all"
-              >
-                <FaSun />
-              </button>
               <button
                 onClick={handleLogout}
                 className="bg-red-500/10 border border-red-500 text-red-500 font-semibold px-4 py-1 rounded-sm cursor-pointer hover:bg-red-500 hover:text-white transition-colors"
