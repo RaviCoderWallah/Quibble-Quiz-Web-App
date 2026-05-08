@@ -6,14 +6,32 @@ import { MdOutlineNavigateNext } from "react-icons/md";
 import useQuiz from "../../hooks/useQuiz";
 import useQuizCurrentQuestion from "../../hooks/useQuizCurrentQuestion";
 import { useState } from "react";
+import useTimer from "../../hooks/useTimer";
+import useScore from "../../hooks/useScore";
 
 const GamePlayScreen = () => {
   const [selectedOption, setSelectedOption] = useState(null);
   const [correctAnswer, setCorrectAnswer] = useState(false);
   const [isSubmitQuiz, setIsSubmitQuiz] = useState(false);
   const [isExplainShow, setIsExplainShow] = useState(false);
+  const [isLifeLineEnabled, setIsLifeLineEnabled] = useState(false);
 
-  const { activeQuestionData } = useQuiz();
+  const { activeQuestionData, activeDifficulty } = useQuiz();
+  const { timerLeft, timerFinised, resetTimer } = useTimer();
+
+  let points = null;
+  if (activeDifficulty === "easy") {
+    points = 5;
+  }
+  if (activeDifficulty === "medium") {
+    points = 10;
+  }
+  if (activeDifficulty === "hard") {
+    points = 20;
+  }
+
+  const { score, skipCharge, initialLifeLine, lifeline, increaseScore } =
+    useScore(points);
 
   const {
     question,
@@ -35,6 +53,7 @@ const GamePlayScreen = () => {
     if (selectedOption !== null) {
       if (selectedOption === answer) {
         setCorrectAnswer(true);
+        increaseScore();
       }
       setIsSubmitQuiz(true);
     }
@@ -55,6 +74,28 @@ const GamePlayScreen = () => {
     setIsExplainShow(false);
     setCorrectAnswer(false);
     setSelectedOption(null);
+    setIsLifeLineEnabled(false);
+    resetTimer();
+  };
+
+  //Handling when timer is finised
+  if (timerFinised) {
+    handleNextQuestion();
+    resetTimer();
+    skipCharge();
+  }
+
+  //Handling Skip Question
+  const handleskipQuestion = () => {
+    handleNextQuestion();
+    resetTimer();
+    skipCharge();
+  };
+
+  //Handling 50/50 Lifeline
+  const handleLifeline = () => {
+    lifeline();
+    setIsLifeLineEnabled(true);
   };
 
   return (
@@ -76,12 +117,12 @@ const GamePlayScreen = () => {
         <div className="flex items-center gap-4">
           <div>
             <p className="px-2 py-0 bg-orange-800/50 outline-1 outline-orange-700 rounded-full text-white">
-              Time: 5s
+              Time: {timerLeft}s
             </p>
           </div>
           <div>
             <p className="px-2 py-0 bg-yellow-800/50 outline-1 outline-yellow-700 rounded-full text-white">
-              Score: 01
+              Score: {score < 10 ? `0${score}` : `${score}`}
             </p>
           </div>
         </div>
@@ -135,21 +176,28 @@ const GamePlayScreen = () => {
               </button>
             );
           })}
-          {/* <button className="bg-green-700 text-white text-sm outline-2 py-2 rounded-sm outline-green-500 cursor-pointer hover:outline-2">Hyper Text Markup Language</button>
-          <button className="bg-gray-600/50 text-white text-sm outline-2 py-2 rounded-sm cursor-pointer">High Text Machine Language</button>
-          <button className="bg-gray-600/50 text-white text-sm outline-1 py-2 rounded-sm cursor-pointer hover:outline-2">None of the above</button>
-          <button className="bg-red-700 text-white text-sm outline-2 py-2 rounded-sm outline-red-500 cursor-pointer hover:outline-2">Hyper Transfer Markup Language</button> */}
         </div>
       </div>
       <div className="flex justify-between" data-roles="game-footer">
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-6">
           {!isSubmitQuiz && (
             <>
-              <button className="bg-pink-600/20 flex items-center gap-2 text-white text-sm outline-1 py-1 px-4 rounded-sm cursor-pointer hover:bg-pink-600/60">
+              <button
+                onClick={handleLifeline}
+                disabled={isLifeLineEnabled}
+                className={`${isLifeLineEnabled ? "cursor-not-allowed opacity-50" : "cursor-pointer hover:bg-pink-600/60"} 
+                bg-pink-600/20 relative flex items-center gap-2 text-white text-sm outline-1 py-1 px-4 rounded-sm`}
+              >
+                <div className="bg-red-700 absolute w-6 h-6 -top-3 -right-3 text-sm flex items-center justify-center rounded-full font-semibold text-white">
+                  {initialLifeLine}
+                </div>{" "}
                 <FaHeart />
                 50/50
               </button>
-              <button className="bg-orange-600/20 flex items-center gap-2 text-white text-sm outline-1 py-1 px-4 rounded-sm cursor-pointer hover:bg-orange-600/60">
+              <button
+                onClick={handleskipQuestion}
+                className="bg-orange-600/20 flex items-center gap-2 text-white text-sm outline-1 py-1 px-4 rounded-sm cursor-pointer hover:bg-orange-600/60"
+              >
                 <GoSkipFill />
                 Skip
               </button>

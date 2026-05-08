@@ -52,7 +52,7 @@ const QuizWelcomeScreen = ({ setIsWelcomeScreenShow }) => {
               <span className="text-yellow-400 font-semibold">
                 50/50 Lifeline:
               </span>{" "}
-              5 free uses. Subsequent uses deduct{" "}
+              3 free uses. Subsequent uses deduct{" "}
               <span className="text-red-400 font-mono">5 points</span>.
             </p>
           </div>
