@@ -16,6 +16,7 @@ const GamePlayScreen = ({ setIsResultScreenShow }) => {
   const [isExplainShow, setIsExplainShow] = useState(false);
   const [isLifeLineEnabled, setIsLifeLineEnabled] = useState(false);
   const [correctAnswerCount, setCorrectAnswerCount] = useState(0);
+  const [hiddenOptions, setHiddenOptions] = useState([]);
 
   const { activeQuestionData, activeDifficulty } = useQuiz();
   const { timerLeft, timerFinised, resetTimer, timerStop } = useTimer();
@@ -87,6 +88,7 @@ const GamePlayScreen = ({ setIsResultScreenShow }) => {
     setCorrectAnswer(false);
     setSelectedOption(null);
     setIsLifeLineEnabled(false);
+    setHiddenOptions([]);
     resetTimer();
   };
 
@@ -108,6 +110,18 @@ const GamePlayScreen = ({ setIsResultScreenShow }) => {
   const handleLifeline = () => {
     lifeline();
     setIsLifeLineEnabled(true);
+
+    const incorrectOptionsIndices = options
+      .map((_, index) => index)
+      .filter((index) => index !== answer);
+
+    const toHide = [];
+    const shuffledIncorrect = incorrectOptionsIndices.sort(
+      () => Math.random() - 0.5
+    );
+    toHide.push(shuffledIncorrect[0], shuffledIncorrect[1]);
+
+    setHiddenOptions(toHide);
   };
 
   return (
@@ -152,6 +166,8 @@ const GamePlayScreen = ({ setIsResultScreenShow }) => {
             let buttonClasses =
               "text-white text-sm py-2 rounded-sm transition-all duration-200 outline-1 ";
 
+            const isHidden = hiddenOptions.includes(index);
+
             if (isSubmitQuiz) {
               if (isCorrectAnswer) {
                 buttonClasses +=
@@ -162,6 +178,8 @@ const GamePlayScreen = ({ setIsResultScreenShow }) => {
               } else {
                 buttonClasses += "bg-gray-600/50 opacity-50 cursor-not-allowed";
               }
+            } else if (isHidden) {
+              buttonClasses += "bg-gray-800/20 opacity-20 cursor-not-allowed";
             } else {
               if (selectedOption !== null) {
                 if (isSelected) {
@@ -181,7 +199,7 @@ const GamePlayScreen = ({ setIsResultScreenShow }) => {
               <button
                 onClick={() => handleUserSelectOption(index)}
                 key={index}
-                disabled={isSubmitQuiz}
+                disabled={isSubmitQuiz || isHidden}
                 className={buttonClasses}
               >
                 {opt}
