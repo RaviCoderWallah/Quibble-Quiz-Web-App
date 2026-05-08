@@ -21,7 +21,7 @@ const QuizGamePlayScreen = () => {
   }, [activeCategory, activeSubCategory, changeCategory, changeSubCategory]);
 
   return (
-    <div className="bg-gray-600/30 col-span-6 p-4">
+    <div className="bg-gray-600/30 md:col-span-6 p-4">
       {isWelcomeScreenShow ? (
         <QuizWelcomeScreen setIsWelcomeScreenShow={setIsWelcomeScreenShow} />
       ) : isResultScreenShow ? (

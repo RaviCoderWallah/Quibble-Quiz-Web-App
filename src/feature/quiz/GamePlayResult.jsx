@@ -25,14 +25,14 @@ const GamePlayResult = ({ setIsWelcomeScreenShow, setIsResultScreenShow }) => {
 
   return (
     <div className="text-center flex items-center justify-center min-h-full">
-      <div className="flex flex-col gap-4">
-        <h1 className="text-3xl font-semibold text-white">
+      <div className="flex flex-col md:gap-4 gap-2">
+        <h1 className="md:text-3xl text-base font-semibold text-white">
           Score:{" "}
           <span className="text-yellow-500">
             {score < 10 ? `0${score}` : `${score}`}
           </span>
         </h1>
-        <h1 className="text-3xl font-semibold text-white">
+        <h1 className="md:text-3xl text-base font-semibold text-white">
           Correct Answer:{" "}
           <span className="text-yellow-500">
             {correctAnswerCount < 10
@@ -40,10 +40,10 @@ const GamePlayResult = ({ setIsWelcomeScreenShow, setIsResultScreenShow }) => {
               : `${correctAnswerCount}/10`}
           </span>
         </h1>
-        <h1 className="text-4xl font-bold text-white">
+        <h1 className="md:text-4xl text-lg font-bold text-white">
           <span className="text-orange-400">{user.name}, </span> {title}
         </h1>
-        <p className="text-2xl max-w-md italic">
+        <p className="md:text-2xl text-base max-w-md italic">
           {correctAnswerCount == 10
             ? "Outstanding performance! You've mastered this level."
             : correctAnswerCount >= 5
@@ -53,7 +53,7 @@ const GamePlayResult = ({ setIsWelcomeScreenShow, setIsResultScreenShow }) => {
         <div>
           <button
             onClick={handlePlayAgain}
-            className="bg-green-700 text-white px-4 outline-1 outline-gray-400 shadow-xl py-2 rounded-sm cursor-pointer hover:bg-green-600"
+            className="bg-green-700 md:text-base text-sm text-white px-4 outline-1 outline-gray-400 shadow-xl py-2 rounded-sm cursor-pointer hover:bg-green-600"
           >
             Play Again !
           </button>

@@ -117,7 +117,7 @@ const GamePlayScreen = ({ setIsResultScreenShow }) => {
 
     const toHide = [];
     const shuffledIncorrect = incorrectOptionsIndices.sort(
-      () => Math.random() - 0.5
+      () => Math.random() - 0.5,
     );
     toHide.push(shuffledIncorrect[0], shuffledIncorrect[1]);
 
@@ -126,9 +126,12 @@ const GamePlayScreen = ({ setIsResultScreenShow }) => {
 
   return (
     <div className="flex flex-col gap-6">
-      <div className="flex justify-between" data-roles="game-header">
-        <div className="flex items-center gap-3">
-          <p className="text-white">
+      <div
+        className="flex md:flex-nowrap flex-wrap md:gap-0 gap-2 justify-between"
+        data-roles="game-header"
+      >
+        <div className="flex md:flex-nowrap flex-wrap items-center gap-3">
+          <p className="text-white md:text-base text-xs">
             Question {currentQuestionData + 1} of {activeQuestionData.length}
           </p>
           <div>
@@ -142,12 +145,12 @@ const GamePlayScreen = ({ setIsResultScreenShow }) => {
         </div>
         <div className="flex items-center gap-4">
           <div>
-            <p className="px-2 py-0 bg-orange-800/50 outline-1 outline-orange-700 rounded-full text-white">
+            <p className="px-2 py-0 md:text-base text-xs bg-orange-800/50 outline-1 outline-orange-700 rounded-full text-white">
               Time: {timerLeft}s
             </p>
           </div>
           <div>
-            <p className="px-2 py-0 bg-yellow-800/50 outline-1 outline-yellow-700 rounded-full text-white">
+            <p className="px-2 py-0 bg-yellow-800/50 md:text-base text-xs outline-1 outline-yellow-700 rounded-full text-white">
               Score: {score < 10 ? `0${score}` : `${score}`}
             </p>
           </div>
@@ -157,14 +160,16 @@ const GamePlayScreen = ({ setIsResultScreenShow }) => {
         className="text-center bg-gray-600/10 outline-1 outline-gray-600 rounded-md min-h-50 p-2"
         data-roles="question-option"
       >
-        <h1 className="text-3xl font-bold text-yellow-500">{question}</h1>
-        <div className="grid grid-cols-2 gap-4 mt-6 max-w-140 mx-auto">
+        <h1 className="md:text-3xl text-sm font-bold text-yellow-500">
+          {question}
+        </h1>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-6 max-w-140 mx-auto">
           {options?.map((opt, index) => {
             const isSelected = selectedOption === index;
             const isCorrectAnswer = index === answer;
 
             let buttonClasses =
-              "text-white text-sm py-2 rounded-sm transition-all duration-200 outline-1 ";
+              "text-white md:text-base text-xs text-sm py-2 rounded-sm transition-all duration-200 outline-1 ";
 
             const isHidden = hiddenOptions.includes(index);
 
@@ -208,7 +213,10 @@ const GamePlayScreen = ({ setIsResultScreenShow }) => {
           })}
         </div>
       </div>
-      <div className="flex justify-between" data-roles="game-footer">
+      <div
+        className="flex md:flex-nowrap flex-wrap md:gap-0 gap-4 justify-between"
+        data-roles="game-footer"
+      >
         <div className="flex items-center gap-6">
           {!isSubmitQuiz && (
             <>
@@ -216,9 +224,9 @@ const GamePlayScreen = ({ setIsResultScreenShow }) => {
                 onClick={handleLifeline}
                 disabled={isLifeLineEnabled}
                 className={`${isLifeLineEnabled ? "cursor-not-allowed opacity-50" : "cursor-pointer hover:bg-pink-600/60"} 
-                bg-pink-600/20 relative flex items-center gap-2 text-white text-sm outline-1 py-1 px-4 rounded-sm`}
+                bg-pink-600/20 md:text-sm text-xs relative flex items-center gap-2 text-white outline-1 py-1 px-4 rounded-sm`}
               >
-                <div className="bg-red-700 absolute w-6 h-6 -top-3 -right-3 text-sm flex items-center justify-center rounded-full font-semibold text-white">
+                <div className="bg-red-700  absolute w-4 h-4 md:w-6 md:h-6 -top-3 -right-3 text-xs md:text-sm flex items-center justify-center rounded-full font-semibold text-white">
                   {initialLifeLine}
                 </div>{" "}
                 <FaHeart />
@@ -226,7 +234,7 @@ const GamePlayScreen = ({ setIsResultScreenShow }) => {
               </button>
               <button
                 onClick={handleskipQuestion}
-                className="bg-orange-600/20 flex items-center gap-2 text-white text-sm outline-1 py-1 px-4 rounded-sm cursor-pointer hover:bg-orange-600/60"
+                className="bg-orange-600/20 flex items-center gap-2 text-white md:text-sm text-xs  outline-1 py-1 px-4 rounded-sm cursor-pointer hover:bg-orange-600/60"
               >
                 <GoSkipFill />
                 Skip
@@ -236,7 +244,7 @@ const GamePlayScreen = ({ setIsResultScreenShow }) => {
           {isSubmitQuiz && (
             <button
               onClick={handleExplainQuestion}
-              className="bg-orange-600/20 flex items-center gap-2 text-white text-sm outline-1 py-1 px-4 rounded-sm cursor-pointer hover:bg-orange-600/60"
+              className="bg-orange-600/20 flex items-center gap-2 text-white md:text-sm text-xs  outline-1 py-1 px-4 rounded-sm cursor-pointer hover:bg-orange-600/60"
             >
               <SiCodemagic />
               Explain
@@ -247,7 +255,7 @@ const GamePlayScreen = ({ setIsResultScreenShow }) => {
           <button
             onClick={handleQuizSubmit}
             disabled={selectedOption === null || isSubmitQuiz}
-            className={`${selectedOption === null || isSubmitQuiz ? "opacity-50 cursor-not-allowed" : "cursor-pointer hover:bg-green-600/60"} bg-green-600/50 flex items-center gap-2 text-white text-sm outline-1 py-1 px-4 rounded-sm`}
+            className={`${selectedOption === null || isSubmitQuiz ? "opacity-50 cursor-not-allowed" : "cursor-pointer hover:bg-green-600/60"} bg-green-600/50 flex items-center gap-2 text-white md:text-sm text-xs  outline-1 py-1 px-4 rounded-sm`}
           >
             <PiChatCenteredDotsFill />
             Submit
@@ -256,7 +264,7 @@ const GamePlayScreen = ({ setIsResultScreenShow }) => {
             disabled={!isSubmitQuiz}
             onClick={handleNextQuestion}
             className={`${!isSubmitQuiz ? "cursor-not-allowed" : "cursor-pointer hover:bg-indigo-600/60"}
-           bg-indigo-600/20 flex items-center gap-2 text-white text-sm outline-1 py-1 px-4 rounded-sm `}
+           bg-indigo-600/20 flex items-center gap-2 text-white md:text-sm text-xs  outline-1 py-1 px-4 rounded-sm `}
           >
             Next
             <MdOutlineNavigateNext />

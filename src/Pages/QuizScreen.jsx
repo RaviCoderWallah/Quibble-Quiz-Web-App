@@ -4,7 +4,6 @@ import CategoryFilter from "../feature/quiz/CategoryFilter";
 import Sidebar from "../feature/quiz/Sidebar";
 import QuizGamePlayScreen from "../feature/quiz/QuizGamePlayContainer";
 
-
 const QuizScreen = () => {
   const { user, isLogged, isAuthLoaded } = useAuth();
 
@@ -16,7 +15,7 @@ const QuizScreen = () => {
   return (
     <main className="max-w-6xl w-full mx-auto">
       <CategoryFilter />
-      <div className="grid md:grid-cols-8 gap-8 my-8 min-h-80">
+      <div className="grid grid-cols-1 md:grid-cols-8 gap-8 my-8 min-h-80">
         <Sidebar />
         <QuizGamePlayScreen />
       </div>

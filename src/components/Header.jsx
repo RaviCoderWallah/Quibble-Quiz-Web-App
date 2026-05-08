@@ -20,9 +20,12 @@ const Header = () => {
 
   return (
     <header>
-      <div className="w-full max-w-4xl mx-auto min-h-12 bg-[#2a2a2a] my-4 outline-1 outline-gray-600 p-2 rounded-sm flex justify-between">
+      <div className="w-full max-w-4xl mx-auto min-h-12 bg-[#2a2a2a] my-4 outline-1 outline-gray-600 p-2 rounded-sm flex md:flex-nowrap flex-wrap md:gap-0 gap-2 justify-between">
         <div>
-          <NavLink to="/" className="text-xl text-yellow-500 font-semibold">
+          <NavLink
+            to="/"
+            className="md:text-xl text-lg text-yellow-500 font-semibold"
+          >
             Quibble
           </NavLink>
         </div>
@@ -32,13 +35,13 @@ const Header = () => {
             <div className="flex gap-4 items-center">
               <button
                 onClick={handleLogout}
-                className="bg-red-500/10 border border-red-500 text-red-500 font-semibold px-4 py-1 rounded-sm cursor-pointer hover:bg-red-500 hover:text-white transition-colors"
+                className="bg-red-500/10 md:text-base text-sm border border-red-500 text-red-500 font-semibold px-4 py-1 rounded-sm cursor-pointer hover:bg-red-500 hover:text-white transition-colors"
               >
                 Log Out
               </button>
               <button
                 onClick={handleSignOut}
-                className="bg-red-500/10 border border-red-500 text-red-500 font-semibold px-4 py-1 rounded-sm cursor-pointer hover:bg-red-500 hover:text-white transition-colors"
+                className="bg-red-500/10 md:text-base text-sm border border-red-500 text-red-500 font-semibold px-4 py-1 rounded-sm cursor-pointer hover:bg-red-500 hover:text-white transition-colors"
               >
                 Delete Account
               </button>
