@@ -25,20 +25,19 @@ const GamePlayScreen = () => {
   } = useQuizCurrentQuestion(activeQuestionData);
 
   const handleUserSelectOption = (index) => {
-    if (selectedOption === null) {
+    if (!isSubmitQuiz) {
       setSelectedOption(index);
     }
   };
 
-  const isOptionSelected = (index) => selectedOption === index;
-  const isOptionLocked = selectedOption !== null;
-
   //Handling Quiz Submit
   const handleQuizSubmit = () => {
-    if (selectedOption === answer) {
-      setCorrectAnswer(true);
+    if (selectedOption !== null) {
+      if (selectedOption === answer) {
+        setCorrectAnswer(true);
+      }
+      setIsSubmitQuiz(true);
     }
-    setIsSubmitQuiz(true);
   };
 
   //Handling Explain Question
@@ -94,19 +93,43 @@ const GamePlayScreen = () => {
         <h1 className="text-3xl font-bold text-yellow-500">{question}</h1>
         <div className="grid grid-cols-2 gap-4 mt-6 max-w-140 mx-auto">
           {options?.map((opt, index) => {
-            const selected = isOptionSelected(index);
-            const locked = isOptionLocked && !selected;
+            const isSelected = selectedOption === index;
+            const isCorrectAnswer = index === answer;
+
+            let buttonClasses =
+              "text-white text-sm py-2 rounded-sm transition-all duration-200 outline-1 ";
+
+            if (isSubmitQuiz) {
+              if (isCorrectAnswer) {
+                buttonClasses +=
+                  "bg-green-700 outline-2 outline-green-500 opacity-100 cursor-not-allowed";
+              } else if (isSelected && !isCorrectAnswer) {
+                buttonClasses +=
+                  "bg-red-700 outline-2 outline-red-500 opacity-100 cursor-not-allowed";
+              } else {
+                buttonClasses += "bg-gray-600/50 opacity-50 cursor-not-allowed";
+              }
+            } else {
+              if (selectedOption !== null) {
+                if (isSelected) {
+                  buttonClasses +=
+                    "bg-gray-600/50 outline-2 outline-white opacity-100 cursor-pointer";
+                } else {
+                  buttonClasses +=
+                    "bg-gray-600/50 opacity-50 cursor-pointer hover:opacity-80";
+                }
+              } else {
+                buttonClasses +=
+                  "bg-gray-600/50 opacity-100 cursor-pointer hover:bg-gray-500/50";
+              }
+            }
 
             return (
               <button
                 onClick={() => handleUserSelectOption(index)}
                 key={index}
-                disabled={locked}
-                className={`
-                    ${selected ? "outline-2" : ""}
-                    ${locked ? "opacity-50 cursor-not-allowed" : "cursor-pointer"}
-                    ${correctAnswer ? "bg-green-700 outline-2 outline-green-500" : "bg-red-700 outline-2 outline-red-500 "}
-                   bg-gray-600/50 text-white text-sm outline-1 py-2 rounded-sm`}
+                disabled={isSubmitQuiz}
+                className={buttonClasses}
               >
                 {opt}
               </button>
@@ -145,7 +168,8 @@ const GamePlayScreen = () => {
         <div className="flex items-center gap-4">
           <button
             onClick={handleQuizSubmit}
-            className="bg-green-600/50 flex items-center gap-2 text-white text-sm outline-1 py-1 px-4 rounded-sm cursor-pointer hover:bg-green-600/60"
+            disabled={selectedOption === null || isSubmitQuiz}
+            className={`${selectedOption === null || isSubmitQuiz ? "opacity-50 cursor-not-allowed" : "cursor-pointer hover:bg-green-600/60"} bg-green-600/50 flex items-center gap-2 text-white text-sm outline-1 py-1 px-4 rounded-sm`}
           >
             <PiChatCenteredDotsFill />
             Submit
