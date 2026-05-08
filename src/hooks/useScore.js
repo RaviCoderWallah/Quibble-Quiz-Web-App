@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export default function useScore(points = 5) {
   const [score, setScore] = useState(0);
@@ -23,6 +23,10 @@ export default function useScore(points = 5) {
       }
     }
   };
+
+  useEffect(() => {
+    localStorage.setItem("score", JSON.stringify(score));
+  }, [increaseScore, skipCharge, lifeline]);
 
   return { score, initialLifeLine, increaseScore, skipCharge, lifeline };
 }

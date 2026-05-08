@@ -5,19 +5,20 @@ import { PiChatCenteredDotsFill } from "react-icons/pi";
 import { MdOutlineNavigateNext } from "react-icons/md";
 import useQuiz from "../../hooks/useQuiz";
 import useQuizCurrentQuestion from "../../hooks/useQuizCurrentQuestion";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import useTimer from "../../hooks/useTimer";
 import useScore from "../../hooks/useScore";
 
-const GamePlayScreen = () => {
+const GamePlayScreen = ({ setIsResultScreenShow }) => {
   const [selectedOption, setSelectedOption] = useState(null);
   const [correctAnswer, setCorrectAnswer] = useState(false);
   const [isSubmitQuiz, setIsSubmitQuiz] = useState(false);
   const [isExplainShow, setIsExplainShow] = useState(false);
   const [isLifeLineEnabled, setIsLifeLineEnabled] = useState(false);
+  const [correctAnswerCount, setCorrectAnswerCount] = useState(0);
 
   const { activeQuestionData, activeDifficulty } = useQuiz();
-  const { timerLeft, timerFinised, resetTimer } = useTimer();
+  const { timerLeft, timerFinised, resetTimer, timerStop } = useTimer();
 
   let points = null;
   if (activeDifficulty === "easy") {
@@ -54,10 +55,17 @@ const GamePlayScreen = () => {
       if (selectedOption === answer) {
         setCorrectAnswer(true);
         increaseScore();
+        setCorrectAnswer((prev) => prev + 1);
+        setCorrectAnswerCount((prev) => prev + 1);
       }
       setIsSubmitQuiz(true);
+      timerStop();
     }
   };
+
+  useEffect(() => {
+    localStorage.setItem("correctAnswer", JSON.stringify(correctAnswerCount));
+  }, [correctAnswer]);
 
   //Handling Explain Question
   const handleExplainQuestion = () => {
@@ -66,7 +74,11 @@ const GamePlayScreen = () => {
 
   //Handling Next Question
   const handleNextQuestion = () => {
-    if (currentQuestionData >= 9) return;
+    if (currentQuestionData >= 9) {
+      timerStop();
+      setIsResultScreenShow(true);
+      return;
+    }
     setCurrentQuestionData((prev) => prev + 1);
 
     //Reset all states  after click next button

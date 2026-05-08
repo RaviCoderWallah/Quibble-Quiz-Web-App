@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 
 export default function useTimer(initialTimerValue = 10) {
   const [timerLeft, setTimerLeft] = useState(initialTimerValue);
+  const [timerId, setTimerId] = useState(null);
   const [timerFinised, setTimerFinised] = useState(false);
 
   useEffect(() => {
@@ -15,6 +16,8 @@ export default function useTimer(initialTimerValue = 10) {
       setTimerLeft((prev) => prev - 1); //Timer decrease by one seconds
     }, 1000);
 
+    setTimerId(timer);
+
     return () => clearInterval(timer);
   }, [timerLeft]);
 
@@ -23,5 +26,10 @@ export default function useTimer(initialTimerValue = 10) {
     setTimerFinised(false);
   };
 
-  return { timerLeft, timerFinised, resetTimer };
+  const timerStop = () => {
+    clearInterval(timerId);
+    setTimerId(null);
+  };
+
+  return { timerLeft, timerFinised, resetTimer, timerStop };
 }
