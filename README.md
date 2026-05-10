@@ -1,6 +1,6 @@
 # Quibble – Interactive Quiz App
 
-
+![Quibble Preview](./public/Quibble.jpg)
 
 ## 🛠️ Tech Stack
 
