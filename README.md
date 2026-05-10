@@ -1,16 +1,33 @@
-# React + Vite
+# Quibble – Interactive Quiz App
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
-Currently, two official plugins are available:
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## 🛠️ Tech Stack
 
-## React Compiler
+| Category       | Technologies Used                          |
+|----------------|--------------------------------------------|
+| **Frontend**   | React.js, Tailwind CSS, JavaScript/JSX     |
+| **Build Tool** | Vite / Create React App                    |
+| **Design**     | Figma (for prototyping & UI design)        |
+| **Deployment** | Netlify / Vercel / GitHub Pages            |
+| **Other**      | React Router, React Icons, SEO meta tags   |
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+---
 
-## Expanding the ESLint configuration
+> 🧠 *Test your knowledge with categorized quizzes, lifelines & real-time scoring!*
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+**Description**: A feature-rich quiz application with categories, difficulty levels, authentication, and gamified elements.
+
+**Features**:
+- 📚 Categorized quizzes with subcategories
+- 🎯 Difficulty levels: Easy, Medium, Hard
+- 💡 50/50 Lifeline & skip penalties
+- 🔐 Complete Authentication System
+- 📊 Interactive Result Board
+- ⏱️ Real-time scoring and timer
+
+**Tech Stack**: React, JavaScript, Tailwind CSS, Figma
+
+🔗 [Live Demo](https://heycoderji-quibble.netlify.app/)
+
+---
